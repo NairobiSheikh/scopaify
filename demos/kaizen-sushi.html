@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kaizen Sushi — Modern Japanese</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #c8001a; --red2: #e5001f; --red3: rgba(200,0,26,.08);
+      --ink: #04080f; --ink2: #080f18; --ink3: #0d1620;
+      --snow: #f4f6f9; --snow2: #e8ecf2; --snow3: rgba(244,246,249,.06);
+      --mist: rgba(244,246,249,.55); --mist2: rgba(244,246,249,.28); --mist3: rgba(244,246,249,.14);
+      --serif: 'Shippori Mincho', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--ink); color: var(--snow); font-family: var(--sans); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 56px; height: 68px;
+      background: rgba(4,8,15,.9); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(200,0,26,.2);
+    }
+    .nav-left { display: flex; align-items: center; gap: 0; }
+    .nav-bar { width: 3px; height: 28px; background: var(--red); margin-right: 14px; }
+    .nav-brand { font-family: var(--serif); font-size: 18px; font-weight: 500; color: var(--snow); text-decoration: none; letter-spacing: .04em; }
+    .nav-brand span { font-size: 10px; display: block; letter-spacing: .22em; text-transform: uppercase; color: var(--mist2); font-family: var(--sans); font-weight: 300; margin-top: 1px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 12px; letter-spacing: .08em; color: var(--mist); text-decoration: none; font-weight: 300; transition: color .2s; }
+    .nav-links a:hover { color: var(--red2); }
+    .nav-cta { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; padding: 9px 22px; background: var(--red); color: #fff; text-decoration: none; transition: background .2s; }
+    .nav-cta:hover { background: var(--red2); }
+
+    /* HERO */
+    .hero { position: relative; height: 100vh; min-height: 640px; display: flex; align-items: center; overflow: hidden; }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(110deg, var(--ink) 0%, var(--ink2) 55%, #060e1a 100%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(200,0,26,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(200,0,26,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-circle {
+      position: absolute; right: 8%; top: 50%; transform: translateY(-50%);
+      width: 420px; height: 420px;
+    }
+    .hero-circle-ring {
+      position: absolute; border-radius: 50%; border: 1px solid;
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+    }
+    .r1 { width: 420px; height: 420px; border-color: rgba(200,0,26,.08); }
+    .r2 { width: 320px; height: 320px; border-color: rgba(200,0,26,.12); }
+    .r3 { width: 220px; height: 220px; border-color: rgba(200,0,26,.18); background: rgba(200,0,26,.04); }
+    .r4 { width: 120px; height: 120px; border-color: rgba(200,0,26,.28); background: rgba(200,0,26,.08); }
+    .hero-kanji {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      font-family: var(--serif); font-size: 48px; color: rgba(200,0,26,.35);
+      font-weight: 600; letter-spacing: .04em;
+    }
+    .hero-content { position: relative; padding: 0 56px; max-width: 680px; animation: fadeIn .8s ease both; }
+    .hero-jp { font-family: var(--serif); font-size: 11px; letter-spacing: .3em; color: var(--red); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; }
+    .hero-jp::after { content: ''; flex: 0 0 40px; height: 1px; background: var(--red); opacity: .5; }
+    .hero-h1 { font-family: var(--serif); font-size: clamp(52px, 7.5vw, 106px); font-weight: 400; line-height: .92; letter-spacing: -.02em; color: var(--snow); margin-bottom: 20px; }
+    .hero-h1 .accent { color: var(--red); }
+    .hero-sub { font-size: 14px; color: var(--mist); font-weight: 300; letter-spacing: .04em; margin-bottom: 48px; line-height: 1.65; max-width: 400px; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-red { padding: 14px 36px; background: var(--red); color: #fff; text-decoration: none; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; font-weight: 400; transition: background .2s; }
+    .btn-red:hover { background: var(--red2); }
+    .btn-ghost { padding: 14px 36px; background: transparent; color: var(--mist); text-decoration: none; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; font-weight: 400; border: 1px solid var(--mist3); transition: all .2s; }
+    .btn-ghost:hover { border-color: rgba(200,0,26,.4); color: var(--red2); }
+
+    /* STRIP */
+    .strip { background: var(--ink2); border-top: 1px solid rgba(200,0,26,.15); border-bottom: 1px solid rgba(200,0,26,.15); padding: 26px 56px; display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
+    .sn { font-family: var(--serif); font-size: 32px; font-weight: 500; color: var(--snow); line-height: 1; }
+    .sl { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--mist2); margin-top: 4px; }
+    .svd { width: 1px; height: 40px; background: rgba(200,0,26,.2); }
+
+    /* SECTIONS */
+    .sec { padding: 88px 56px; max-width: 1180px; margin: 0 auto; }
+    .sec-line { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .sec-line::before { content: ''; width: 20px; height: 2px; background: var(--red); }
+    .sec-line span { font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--red); font-weight: 400; }
+    .sec-title { font-family: var(--serif); font-size: clamp(36px, 5vw, 62px); font-weight: 400; line-height: 1.05; color: var(--snow); }
+    .sec-title .red { color: var(--red); }
+
+    /* ABOUT */
+    .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 52px; align-items: start; }
+    .about-text p { font-size: 15px; line-height: 1.9; color: var(--mist); font-weight: 300; margin-bottom: 18px; }
+    .about-text p:last-child { margin: 0; }
+    .about-pillar { display: flex; flex-direction: column; gap: 2px; }
+    .pillar { padding: 26px 28px; background: var(--ink2); border-left: 2px solid transparent; transition: border-color .25s; }
+    .pillar:hover { border-left-color: var(--red); }
+    .pillar-title { font-family: var(--serif); font-size: 16px; font-weight: 500; color: var(--snow); margin-bottom: 6px; }
+    .pillar-text { font-size: 13px; color: var(--mist2); line-height: 1.65; font-weight: 300; }
+
+    /* MENU */
+    .menu-bg { background: var(--ink2); border-top: 1px solid rgba(200,0,26,.08); padding: 88px 0; }
+    .menu-inner { max-width: 1180px; margin: 0 auto; padding: 0 56px; }
+    .menu-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 44px; flex-wrap: wrap; gap: 20px; }
+    .menu-tabs { display: flex; border-bottom: 1px solid rgba(200,0,26,.15); }
+    .mtab { padding: 8px 22px; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--mist2); cursor: pointer; border: none; background: none; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .2s; font-family: var(--sans); }
+    .mtab.on { color: var(--snow); border-bottom-color: var(--red); }
+    .mgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
+    .mcard { padding: 24px 28px; background: var(--ink3); transition: background .2s; }
+    .mcard:hover { background: rgba(13,22,32,.9); }
+    .mcard-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 7px; }
+    .mcard-name { font-family: var(--serif); font-size: 17px; font-weight: 400; color: var(--snow); }
+    .mcard-price { font-family: var(--serif); font-size: 16px; color: var(--red); }
+    .mcard-desc { font-size: 12px; color: var(--mist2); line-height: 1.7; font-weight: 300; }
+    .mcard-sub { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--mist3); margin-top: 6px; font-style: italic; font-family: var(--serif); }
+
+    /* OMAKASE */
+    .omakase-wrap { border: 1px solid rgba(200,0,26,.18); padding: 48px; margin-top: 2px; background: var(--ink3); display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .oma-left h3 { font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--snow); margin-bottom: 8px; }
+    .oma-left p { font-size: 14px; color: var(--mist); font-weight: 300; max-width: 420px; line-height: 1.7; }
+    .oma-price { text-align: right; }
+    .oma-from { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--mist2); margin-bottom: 4px; }
+    .oma-num { font-family: var(--serif); font-size: 48px; font-weight: 400; color: var(--snow); line-height: 1; }
+    .oma-per { font-size: 11px; color: var(--mist2); }
+
+    /* CRAFTS */
+    .craft-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-top: 52px; }
+    .craft-card { padding: 36px 30px; background: var(--ink2); position: relative; overflow: hidden; }
+    .craft-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform .35s ease; }
+    .craft-card:hover::after { transform: scaleX(1); }
+    .craft-num { font-family: var(--serif); font-size: 42px; font-weight: 400; color: rgba(200,0,26,.15); line-height: 1; margin-bottom: 14px; }
+    .craft-title { font-family: var(--serif); font-size: 20px; font-weight: 500; color: var(--snow); margin-bottom: 10px; }
+    .craft-text { font-size: 13px; color: var(--mist2); line-height: 1.75; font-weight: 300; }
+
+    /* RESERVATION */
+    .res-wrap {
+      background: linear-gradient(135deg, #060b14 0%, #04080f 100%);
+      border-top: 1px solid rgba(200,0,26,.15);
+      padding: 88px 56px; text-align: center;
+    }
+    .res-jp { font-family: var(--serif); font-size: 11px; letter-spacing: .3em; color: var(--red); margin-bottom: 20px; display: block; }
+    .res-title { font-family: var(--serif); font-size: clamp(38px, 5.5vw, 68px); font-weight: 400; color: var(--snow); margin-bottom: 12px; }
+    .res-title .red { color: var(--red); }
+    .res-sub { font-size: 14px; color: var(--mist); font-weight: 300; margin-bottom: 44px; }
+    .res-form { display: flex; gap: 8px; max-width: 600px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
+    .rinput { flex: 1; min-width: 150px; padding: 12px 16px; background: var(--ink2); border: 1px solid rgba(200,0,26,.2); color: var(--snow); font-size: 13px; font-family: var(--sans); outline: none; transition: border-color .2s; }
+    .rinput:focus { border-color: var(--red); }
+    .rinput::placeholder { color: var(--mist3); }
+    .rbtn { padding: 12px 30px; background: var(--red); color: #fff; border: none; cursor: pointer; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; font-family: var(--sans); transition: background .2s; }
+    .rbtn:hover { background: var(--red2); }
+
+    footer { background: #020509; padding: 52px 56px 32px; border-top: 1px solid rgba(200,0,26,.1); }
+    .ft { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; margin-bottom: 40px; }
+    .fb-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .fb-bar { width: 3px; height: 24px; background: var(--red); }
+    .fb-name { font-family: var(--serif); font-size: 20px; font-weight: 500; color: var(--snow); }
+    .fb-sub { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--mist2); }
+    .fc h4 { font-size: 9px; letter-spacing: .26em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+    .fc p, .fc a { font-size: 13px; color: var(--mist); line-height: 2; text-decoration: none; display: block; transition: color .2s; font-weight: 300; }
+    .fc a:hover { color: var(--snow); }
+    .fb { display: flex; justify-content: space-between; align-items: center; padding-top: 22px; border-top: 1px solid rgba(200,0,26,.08); flex-wrap: wrap; gap: 10px; }
+    .fcopy { font-size: 11px; color: var(--mist3); }
+    .back { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--mist3); text-decoration: none; transition: color .2s; }
+    .back:hover { color: var(--snow); }
+
+    @keyframes fadeIn { from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none} }
+    .reveal { opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease; }
+    .reveal.vis { opacity:1;transform:none; }
+
+    @media(max-width:860px) {
+      nav { padding: 0 20px; } .nav-links { display: none; }
+      .hero { min-height: 100vh; } .hero-content { padding: 0 20px; }
+      .hero-circle { display: none; }
+      .sec, .menu-inner, .res-wrap, footer { padding-left: 20px; padding-right: 20px; }
+      .about-layout, .mgrid, .craft-row { grid-template-columns: 1fr; }
+      .strip { padding: 22px 20px; gap: 24px; } .svd { display: none; }
+      .omakase-wrap { flex-direction: column; } .oma-price { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-left">
+      <div class="nav-bar"></div>
+      <a class="nav-brand" href="#">Kaizen Sushi<span>Modern Japanese · Los Angeles</span></a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#craft">Our Craft</a></li>
+      <li><a href="#reserve">Reserve</a></li>
+    </ul>
+    <a class="nav-cta" href="#reserve">Book Omakase</a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-circle">
+      <div class="hero-circle-ring r1"></div>
+      <div class="hero-circle-ring r2"></div>
+      <div class="hero-circle-ring r3"></div>
+      <div class="hero-circle-ring r4"></div>
+      <div class="hero-kanji">改善</div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-jp">改善 · Continuous Improvement</p>
+      <h1 class="hero-h1">Modern<br>Japanese<br><span class="accent">精度</span></h1>
+      <p class="hero-sub">Precision omakase, live bar, and seasonal kaiseki — rooted in tradition, driven by craft.</p>
+      <div class="hero-btns">
+        <a class="btn-red" href="#reserve">Book Omakase</a>
+        <a class="btn-ghost" href="#menu">View the Menu</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="strip">
+    <div><div class="sn">18</div><div class="sl">Course Omakase</div></div>
+    <div class="svd"></div>
+    <div><div class="sn">Seasonal</div><div class="sl">Sourced Daily</div></div>
+    <div class="svd"></div>
+    <div><div class="sn">Tsukiji</div><div class="sl">Direct Import</div></div>
+    <div class="svd"></div>
+    <div><div class="sn">4.9★</div><div class="sl">Michelin Recognized</div></div>
+  </div>
+
+  <div class="sec" id="about">
+    <div class="sec-line reveal"><span>Our Philosophy</span></div>
+    <h2 class="sec-title reveal">Craft without<br><span class="red">compromise</span></h2>
+    <div class="about-layout">
+      <div class="about-text">
+        <p class="reveal">Kaizen means continuous improvement. It's the philosophy behind every dish we serve — from the daily fish sourced directly from Tsukiji to the rice seasoned with century-old red vinegar. Nothing at Kaizen is accidental.</p>
+        <p class="reveal">Our chefs trained under masters in Tokyo and Osaka before bringing their craft to Los Angeles. The result is a dining experience that honors tradition while embracing the ingredients and culture of Southern California.</p>
+      </div>
+      <div class="about-pillar">
+        <div class="pillar reveal"><div class="pillar-title">Sourcing</div><p class="pillar-text">Fish flown daily from Tokyo's Toyosu Market. Vegetables from local farms in Ventura County.</p></div>
+        <div class="pillar reveal"><div class="pillar-title">Technique</div><p class="pillar-text">Shari rice aged 30 days, seasoned with Koshihikari vinegar. Every cut measured and intentional.</p></div>
+        <div class="pillar reveal"><div class="pillar-title">Service</div><p class="pillar-text">Each omakase is a conversation. Our chefs guide you through the meal, piece by piece.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-bg" id="menu">
+    <div class="menu-inner">
+      <div class="sec-line reveal"><span>The Menu</span></div>
+      <div class="menu-head">
+        <h2 class="sec-title reveal">Seasonal &amp;<br><span class="red">precise</span></h2>
+        <div class="menu-tabs">
+          <button class="mtab on">Nigiri</button>
+          <button class="mtab">Rolls</button>
+          <button class="mtab">Kitchen</button>
+        </div>
+      </div>
+      <div class="mgrid" id="mgrid">
+        <div class="mcard reveal"><div class="mcard-top"><span class="mcard-name">Otoro</span><span class="mcard-price">$28</span></div><p class="mcard-desc">Fatty bluefin tuna belly, aged shari, micro shiso.</p><p class="mcard-sub">Toyosu Market · 2 pieces</p></div>
+        <div class="mcard reveal"><div class="mcard-top"><span class="mcard-name">Uni</span><span class="mcard-price">$26</span></div><p class="mcard-desc">Santa Barbara sea urchin, soy-seasoned rice, nori band.</p><p class="mcard-sub">Santa Barbara · 2 pieces</p></div>
+        <div class="mcard reveal"><div class="mcard-top"><span class="mcard-name">Wagyu Nigiri</span><span class="mcard-price">$32</span></div><p class="mcard-desc">A5 Miyazaki wagyu, torched tableside, ponzu gel, truffle.</p><p class="mcard-sub">Miyazaki Prefecture · 2 pieces</p></div>
+        <div class="mcard reveal"><div class="mcard-top"><span class="mcard-name">Ikura</span><span class="mcard-price">$18</span></div><p class="mcard-desc">Wild Alaskan salmon roe, house-cured overnight, yuzu zest.</p><p class="mcard-sub">Wild-caught Alaska · 2 pieces</p></div>
+      </div>
+      <div class="omakase-wrap reveal">
+        <div class="oma-left">
+          <h3>Omakase Experience</h3>
+          <p>Trust the chef. Our 18-course omakase evolves nightly based on what arrived from the market that morning. No two seatings are identical. Beverage pairing available.</p>
+        </div>
+        <div class="oma-price">
+          <div class="oma-from">Starting at</div>
+          <div class="oma-num">$195</div>
+          <div class="oma-per">per person</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec" id="craft">
+    <div class="sec-line reveal"><span>The Craft</span></div>
+    <h2 class="sec-title reveal">Every detail,<br><span class="red">intentional</span></h2>
+    <div class="craft-row">
+      <div class="craft-card reveal"><div class="craft-num">01</div><h3 class="craft-title">The Rice</h3><p class="craft-text">Koshihikari rice cooked in small batches throughout service, seasoned with Kanazawa red vinegar aged 30 days. The foundation of everything.</p></div>
+      <div class="craft-card reveal"><div class="craft-num">02</div><h3 class="craft-title">The Counter</h3><p class="craft-text">12 seats at our hinoki cypress counter. No walls between you and the chef. Conversation, craft, and ceremony in real time.</p></div>
+      <div class="craft-card reveal"><div class="craft-num">03</div><h3 class="craft-title">The Knife</h3><p class="craft-text">Each chef's yanagiba is hand-forged in Sakai and sharpened daily. The edge is everything — precision determines texture.</p></div>
+    </div>
+  </div>
+
+  <div class="res-wrap" id="reserve">
+    <span class="res-jp">ご予約 · Reservations</span>
+    <h2 class="res-title">Reserve your<br><span class="red">seat</span></h2>
+    <p class="res-sub">Omakase seatings at 6pm and 8:30pm. Counter and table available. Advance booking required.</p>
+    <div class="res-form">
+      <input class="rinput" type="text" placeholder="Full Name">
+      <input class="rinput" type="date">
+      <select class="rinput" style="cursor:pointer">
+        <option value="">Seating Time</option>
+        <option>6:00 PM</option>
+        <option>8:30 PM</option>
+      </select>
+      <input class="rinput" type="number" placeholder="Guests" min="1" max="12" style="max-width:100px">
+      <button class="rbtn">Reserve</button>
+    </div>
+    <p style="margin-top:22px;font-size:12px;color:var(--mist3)">Or call <span style="color:rgba(200,0,26,.7)">(310) 555-0193</span></p>
+  </div>
+
+  <footer>
+    <div class="ft">
+      <div>
+        <div class="fb-top"><div class="fb-bar"></div><div class="fb-name">Kaizen Sushi</div></div>
+        <div class="fb-sub">Modern Japanese · Los Angeles</div>
+      </div>
+      <div class="fc"><h4>Hours</h4><p>Wed–Sun: 6pm – 11pm</p><p>Omakase: 6pm & 8:30pm</p><p>Closed Mon & Tue</p></div>
+      <div class="fc"><h4>Location</h4><p>318 N Rodeo Dr</p><p>Beverly Hills, CA 90210</p><p>(310) 555-0193</p></div>
+      <div class="fc"><h4>Follow</h4><a href="#">Instagram</a><a href="#">Resy</a><a href="#">Tock</a></div>
+    </div>
+    <div class="fb"><span class="fcopy">© 2026 Kaizen Sushi. All rights reserved.</span><a href="../index.html" class="back">← Back to Scopaify</a></div>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('vis'),i*85);io.unobserve(e.target);}});
+    },{threshold:.08});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    const menus={
+      0:[{n:'Otoro',p:'$28',d:'Fatty bluefin tuna belly, aged shari, micro shiso.',s:'Toyosu Market · 2 pieces'},{n:'Uni',p:'$26',d:'Santa Barbara sea urchin, soy-seasoned rice, nori band.',s:'Santa Barbara · 2 pieces'},{n:'Wagyu Nigiri',p:'$32',d:'A5 Miyazaki wagyu, torched tableside, ponzu gel, truffle.',s:'Miyazaki Prefecture · 2 pieces'},{n:'Ikura',p:'$18',d:'Wild Alaskan salmon roe, house-cured overnight, yuzu zest.',s:'Wild-caught Alaska · 2 pieces'}],
+      1:[{n:'Dragon Roll',p:'$24',d:'Tempura shrimp, cucumber, avocado, unagi sauce, sesame.',s:'8 pieces'},{n:'Spicy Tuna',p:'$20',d:'Chutoro, house spicy mayo, cucumber, togarashi.',s:'8 pieces'},{n:'Kaizen Roll',p:'$32',d:'Wagyu, foie gras, truffle, gold leaf, yuzu aioli.',s:'Signature · 8 pieces'},{n:'Rock Shrimp',p:'$22',d:'Tempura rock shrimp, ponzu cream, jalapeño, tobiko.',s:'8 pieces'}],
+      2:[{n:'Chawanmushi',p:'$18',d:'Silken egg custard, dashi broth, uni, ikura, mitsuba.',s:'Seasonal'},{n:'Gyoza',p:'$16',d:'Pan-fried pork and cabbage, black vinegar, yuzu kosho.',s:'6 pieces'},{n:'A5 Wagyu',p:'$68',d:'Seared Miyazaki wagyu sirloin, wasabi, fleur de sel, ponzu.',s:'4oz · Market Price Varies'},{n:'Miso Soup',p:'$8',d:'Handmade tofu, wakame, scallion, Kyoto white miso broth.',s:'Chef\'s recipe'}]
+    };
+    document.querySelectorAll('.mtab').forEach((tab,idx)=>{
+      tab.addEventListener('click',()=>{
+        document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('on'));
+        tab.classList.add('on');
+        document.getElementById('mgrid').innerHTML=menus[idx].map(m=>`
+          <div class="mcard"><div class="mcard-top"><span class="mcard-name">${m.n}</span><span class="mcard-price">${m.p}</span></div>
+          <p class="mcard-desc">${m.d}</p><p class="mcard-sub">${m.s}</p></div>`).join('');
+      });
+    });
+  </script>
+</body>
+</html>

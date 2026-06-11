@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ember Grill — Premium Steakhouse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ember: #c2410c; --ember-l: #f97316; --gold: #b8860b; --gold-l: #d4a843;
+      --bg: #0a0603; --bg2: #110c07; --bg3: #1a1008;
+      --text: #f5f0e8; --text2: rgba(245,240,232,.65); --text3: rgba(245,240,232,.32);
+      --serif: 'Cormorant Garamond', Georgia, serif; --sans: 'Barlow', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 72px;
+      background: rgba(10,6,3,.88); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(184,134,11,.15);
+    }
+    .nav-brand { font-family: var(--serif); font-size: 22px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--text); text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--text2); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--gold-l); }
+    .nav-cta { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; padding: 10px 24px; border: 1px solid var(--gold); color: var(--gold-l); text-decoration: none; transition: all .25s; }
+    .nav-cta:hover { background: var(--gold); color: #0a0603; }
+
+    .hero { position: relative; height: 100vh; min-height: 640px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 68% 58%, rgba(194,65,12,.2) 0%, transparent 68%),
+                  radial-gradient(ellipse 40% 50% at 18% 40%, rgba(184,134,11,.08) 0%, transparent 60%),
+                  linear-gradient(155deg, #0a0603 0%, #1c0e05 55%, #0a0603 100%);
+    }
+    .hero-particles {
+      position: absolute; inset: 0; overflow: hidden;
+    }
+    .hero-particles span {
+      position: absolute; border-radius: 50%;
+      animation: float linear infinite;
+      background: var(--ember-l);
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: .6; }
+      90% { opacity: .2; }
+      100% { transform: translateY(-20px) scale(1); opacity: 0; }
+    }
+    .hero-content { position: relative; text-align: center; padding: 0 24px; animation: fadeUp .9s ease both; }
+    .hero-eyebrow { font-size: 10px; letter-spacing: .32em; text-transform: uppercase; color: var(--ember-l); margin-bottom: 28px; }
+    .hero-h1 { font-family: var(--serif); font-size: clamp(72px, 10vw, 140px); font-weight: 300; line-height: .9; letter-spacing: -.02em; margin-bottom: 16px; }
+    .hero-h1 em { font-style: italic; color: var(--gold-l); }
+    .hero-sub { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--text3); margin-bottom: 52px; }
+    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-fire { padding: 15px 40px; background: var(--ember); color: #fff; text-decoration: none; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; border: 1px solid var(--ember); transition: all .25s; }
+    .btn-fire:hover { background: var(--ember-l); border-color: var(--ember-l); }
+    .btn-outline { padding: 15px 40px; background: transparent; color: var(--text2); text-decoration: none; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; border: 1px solid rgba(245,240,232,.18); transition: all .25s; }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold-l); }
+    .scroll-cue { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--text3); font-size: 9px; letter-spacing: .22em; text-transform: uppercase; }
+    .scroll-cue::after { content: ''; width: 1px; height: 44px; background: linear-gradient(to bottom, rgba(184,134,11,.5), transparent); animation: lineGrow 2s ease-in-out infinite; }
+    @keyframes lineGrow { 0%,100%{opacity:0;transform:scaleY(0);transform-origin:top} 50%{opacity:1;transform:scaleY(1)} }
+
+    .strip { background: var(--bg2); border-top: 1px solid rgba(184,134,11,.1); border-bottom: 1px solid rgba(184,134,11,.1); padding: 28px 48px; display: flex; align-items: center; justify-content: center; gap: 56px; flex-wrap: wrap; }
+    .stat-n { font-family: var(--serif); font-size: 38px; font-weight: 600; color: var(--gold-l); line-height: 1; }
+    .stat-l { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--text3); margin-top: 4px; }
+    .vd { width: 1px; height: 48px; background: rgba(184,134,11,.18); }
+
+    .sec { padding: 96px 48px; max-width: 1200px; margin: 0 auto; }
+    .sec-label { font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--ember-l); margin-bottom: 18px; }
+    .sec-title { font-family: var(--serif); font-size: clamp(38px, 5vw, 68px); font-weight: 300; line-height: 1.05; }
+    .sec-title em { font-style: italic; color: var(--gold-l); }
+
+    .about-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-top: 44px; }
+    .about-2col p { font-family: var(--serif); font-size: 17px; line-height: 1.85; color: var(--text2); font-weight: 300; }
+
+    .menu-wrap { background: var(--bg2); border-top: 1px solid rgba(184,134,11,.08); padding: 96px 0; }
+    .menu-inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+    .menu-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 52px; flex-wrap: wrap; gap: 20px; }
+    .menu-tabs { display: flex; border-bottom: 1px solid rgba(184,134,11,.18); }
+    .mtab { padding: 9px 26px; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--text3); cursor: pointer; border: none; background: none; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .2s; font-family: var(--sans); }
+    .mtab.on { color: var(--gold-l); border-bottom-color: var(--gold-l); }
+    .mgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .mcard { padding: 26px 30px; background: var(--bg3); border: 1px solid rgba(184,134,11,.05); transition: border-color .2s; }
+    .mcard:hover { border-color: rgba(184,134,11,.18); }
+    .mcard-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 7px; }
+    .mcard-name { font-family: var(--serif); font-size: 20px; font-weight: 400; }
+    .mcard-price { font-family: var(--serif); font-size: 18px; color: var(--gold-l); }
+    .mcard-desc { font-size: 13px; color: var(--text3); line-height: 1.65; font-weight: 300; }
+    .mcard-tag { display: inline-block; margin-top: 9px; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--ember-l); border: 1px solid rgba(194,65,12,.28); padding: 3px 8px; }
+
+    .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 52px; }
+    .ecard { padding: 44px 38px; background: var(--bg2); border: 1px solid rgba(184,134,11,.07); position: relative; overflow: hidden; transition: border-color .3s; }
+    .ecard::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--ember), transparent); opacity: 0; transition: opacity .3s; }
+    .ecard:hover { border-color: rgba(184,134,11,.18); }
+    .ecard:hover::before { opacity: 1; }
+    .ecard-num { font-family: var(--serif); font-size: 52px; font-weight: 300; color: rgba(184,134,11,.12); line-height: 1; margin-bottom: 14px; }
+    .ecard-title { font-family: var(--serif); font-size: 24px; font-weight: 400; margin-bottom: 10px; }
+    .ecard-text { font-size: 14px; color: var(--text2); line-height: 1.72; font-weight: 300; }
+
+    .res-wrap { background: linear-gradient(135deg, var(--bg2), var(--bg3)); border-top: 1px solid rgba(184,134,11,.14); border-bottom: 1px solid rgba(184,134,11,.14); padding: 96px 48px; text-align: center; }
+    .res-title { font-family: var(--serif); font-size: clamp(42px, 6vw, 76px); font-weight: 300; margin-bottom: 14px; }
+    .res-title em { font-style: italic; color: var(--gold-l); }
+    .res-sub { color: var(--text2); font-size: 15px; font-weight: 300; margin-bottom: 44px; }
+    .res-form { display: flex; gap: 10px; max-width: 620px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
+    .rinput { flex: 1; min-width: 150px; padding: 13px 18px; background: rgba(255,255,255,.04); border: 1px solid rgba(184,134,11,.2); color: var(--text); font-size: 13px; font-family: var(--sans); outline: none; transition: border-color .2s; }
+    .rinput:focus { border-color: var(--gold); }
+    .rinput::placeholder { color: var(--text3); }
+    .rbtn { padding: 13px 34px; background: var(--ember); color: #fff; border: none; cursor: pointer; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; font-family: var(--sans); transition: background .25s; }
+    .rbtn:hover { background: var(--ember-l); }
+
+    footer { background: #060402; padding: 56px 48px 36px; border-top: 1px solid rgba(184,134,11,.08); }
+    .ft { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 36px; margin-bottom: 44px; }
+    .fb-name { font-family: var(--serif); font-size: 26px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; }
+    .fb-sub { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--text3); }
+    .fc h4 { font-size: 9px; letter-spacing: .26em; text-transform: uppercase; color: var(--gold-l); margin-bottom: 14px; }
+    .fc p, .fc a { font-size: 13px; color: var(--text2); line-height: 2.1; text-decoration: none; display: block; transition: color .2s; font-weight: 300; }
+    .fc a:hover { color: var(--gold-l); }
+    .fb { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid rgba(184,134,11,.07); flex-wrap: wrap; gap: 10px; }
+    .fcopy { font-size: 11px; color: var(--text3); }
+    .back { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--text3); text-decoration: none; transition: color .2s; }
+    .back:hover { color: var(--gold-l); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.vis { opacity: 1; transform: none; }
+
+    @media(max-width:768px) {
+      nav { padding: 0 20px; } .nav-links { display: none; }
+      .sec, .menu-inner, .res-wrap, footer { padding-left: 20px; padding-right: 20px; }
+      .about-2col, .mgrid, .exp-grid { grid-template-columns: 1fr; }
+      .strip { padding: 22px 20px; gap: 28px; } .vd { display: none; }
+      .menu-head { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-brand" href="#">Ember Grill</a>
+    <ul class="nav-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#reserve">Reserve</a></li>
+    </ul>
+    <a class="nav-cta" href="#reserve">Reserve a Table</a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Est. 2019 · Downtown Chicago</p>
+      <h1 class="hero-h1">Fire &amp;<br><em>Mastery</em></h1>
+      <p class="hero-sub">Premium aged steaks · Craft cocktails · Private dining</p>
+      <div class="hero-btns">
+        <a class="btn-fire" href="#reserve">Reserve Your Table</a>
+        <a class="btn-outline" href="#menu">View the Menu</a>
+      </div>
+    </div>
+    <div class="scroll-cue">Scroll</div>
+  </div>
+
+  <div class="strip">
+    <div><div class="stat-n">28</div><div class="stat-l">Days Dry-Aged</div></div>
+    <div class="vd"></div>
+    <div><div class="stat-n">600°</div><div class="stat-l">Broiler Temp</div></div>
+    <div class="vd"></div>
+    <div><div class="stat-n">180+</div><div class="stat-l">Wine Labels</div></div>
+    <div class="vd"></div>
+    <div><div class="stat-n">5★</div><div class="stat-l">Guest Rating</div></div>
+  </div>
+
+  <div class="sec" id="about">
+    <p class="sec-label reveal">Our Story</p>
+    <h2 class="sec-title reveal">Where fire meets<br><em>precision</em></h2>
+    <div class="about-2col">
+      <p class="reveal">Ember Grill was born from a singular obsession: the perfect steak. Every cut is hand-selected from small farms, dry-aged in-house for a minimum of 28 days, and finished over live fire at 600 degrees. We don't follow trends. We follow the craft.</p>
+      <p class="reveal">Our dining room is designed for those who appreciate the ritual of a great meal — the anticipation, the aroma, the first cut. Whether you're celebrating or simply making a Tuesday extraordinary, Ember Grill delivers an experience worth returning for.</p>
+    </div>
+  </div>
+
+  <div class="menu-wrap" id="menu">
+    <div class="menu-inner">
+      <p class="sec-label reveal">The Menu</p>
+      <div class="menu-head">
+        <h2 class="sec-title reveal">Crafted with<br><em>intention</em></h2>
+        <div class="menu-tabs">
+          <button class="mtab on">Steaks</button>
+          <button class="mtab">Starters</button>
+          <button class="mtab">Desserts</button>
+        </div>
+      </div>
+      <div class="mgrid" id="mgrid">
+        <div class="mcard reveal"><div class="mcard-top"><span class="mcard-name">Ribeye 16oz</span><span class="mcard-price">$72</span></div><p class="mcard-desc">USDA Prime, 28-day dry-aged, bone-in ribeye. Rich marbling, finished with compound herb butter.</p><span class="mcard-tag">Chef's Selection</span></div>
+        <div class="mcard reveal"><div class="mcard-top"><span class="mcard-name">Filet Mignon 8oz</span><span class="mcard-price">$58</span></div><p class="mcard-desc">Center-cut tenderloin, buttery and tender. Served with truffle-scented potato gratin.</p></div>
+        <div class="mcard reveal"><div class="mcard-top"><span class="mcard-name">Tomahawk 40oz</span><span class="mcard-price">$140</span></div><p class="mcard-desc">Dramatic long-bone ribeye, reverse-seared over live fire. A showstopper for two.</p><span class="mcard-tag">For Two</span></div>
+        <div class="mcard reveal"><div class="mcard-top"><span class="mcard-name">NY Strip 14oz</span><span class="mcard-price">$64</span></div><p class="mcard-desc">Bold and beefy with a perfect crust. Dry-aged 21 days, seasoned with sea salt and cracked pepper.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec" id="experience">
+    <p class="sec-label reveal">The Experience</p>
+    <h2 class="sec-title reveal">More than a<br><em>meal</em></h2>
+    <div class="exp-grid">
+      <div class="ecard reveal"><div class="ecard-num">01</div><h3 class="ecard-title">Private Dining</h3><p class="ecard-text">Host up to 24 guests in our intimate private room. Full A/V, custom menus, and dedicated staff for any occasion.</p></div>
+      <div class="ecard reveal"><div class="ecard-num">02</div><h3 class="ecard-title">Wine Cellar</h3><p class="ecard-text">Over 180 labels curated by our sommelier — from approachable California reds to rare Bordeaux.</p></div>
+      <div class="ecard reveal"><div class="ecard-num">03</div><h3 class="ecard-title">Chef's Table</h3><p class="ecard-text">Six seats directly overlooking our open kitchen. Watch the craft up close with a bespoke tasting menu.</p></div>
+      <div class="ecard reveal"><div class="ecard-num">04</div><h3 class="ecard-title">Dry-Age Program</h3><p class="ecard-text">Our in-house dry-age locker holds 28 to 60-day cuts. Ask about our rare extended selections.</p></div>
+    </div>
+  </div>
+
+  <div class="res-wrap" id="reserve">
+    <p class="sec-label" style="text-align:center">Reservations</p>
+    <h2 class="res-title">Reserve your<br><em>evening</em></h2>
+    <p class="res-sub">We recommend booking at least 3 days in advance. Walk-ins welcome based on availability.</p>
+    <div class="res-form">
+      <input class="rinput" type="text" placeholder="Full Name">
+      <input class="rinput" type="date">
+      <input class="rinput" type="number" placeholder="Guests" min="1" max="20" style="max-width:110px">
+      <button class="rbtn">Reserve Now</button>
+    </div>
+    <p style="margin-top:22px;font-size:12px;color:var(--text3)">Or call us at <span style="color:var(--gold-l)">(312) 555-0182</span></p>
+  </div>
+
+  <footer>
+    <div class="ft">
+      <div><div class="fb-name">Ember Grill</div><div class="fb-sub">Premium Steakhouse · Chicago</div></div>
+      <div class="fc"><h4>Hours</h4><p>Mon–Thu: 5pm – 10pm</p><p>Fri–Sat: 5pm – 11pm</p><p>Sunday: 4pm – 9pm</p></div>
+      <div class="fc"><h4>Location</h4><p>142 N Michigan Ave</p><p>Chicago, IL 60601</p><p>(312) 555-0182</p></div>
+      <div class="fc"><h4>Follow</h4><a href="#">Instagram</a><a href="#">OpenTable</a><a href="#">Yelp</a></div>
+    </div>
+    <div class="fb"><span class="fcopy">© 2026 Ember Grill. All rights reserved.</span><a href="../index.html" class="back">← Back to Scopaify</a></div>
+  </footer>
+
+  <script>
+    // Ember particles
+    const pc = document.getElementById('particles');
+    for (let i = 0; i < 18; i++) {
+      const s = document.createElement('span');
+      const size = Math.random() * 3 + 1;
+      s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;
+        animation-duration:${Math.random()*8+6}s;animation-delay:${Math.random()*8}s;
+        opacity:${Math.random()*.5+.2}`;
+      pc.appendChild(s);
+    }
+    // Scroll reveal
+    const io = new IntersectionObserver(entries => {
+      entries.forEach((e,i) => { if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('vis'),i*90); io.unobserve(e.target); }});
+    }, {threshold:.1});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    // Menu tabs
+    const menus = {
+      0:[{n:'Ribeye 16oz',p:'$72',d:'USDA Prime, 28-day dry-aged bone-in ribeye. Rich marbling, finished with compound herb butter.',t:"Chef's Selection"},{n:'Filet Mignon 8oz',p:'$58',d:'Center-cut tenderloin, buttery and tender. Served with truffle-scented potato gratin.',t:null},{n:'Tomahawk 40oz',p:'$140',d:'Dramatic long-bone ribeye, reverse-seared over live fire. A showstopper for two.',t:'For Two'},{n:'NY Strip 14oz',p:'$64',d:'Bold and beefy with a perfect crust. Dry-aged 21 days, sea salt and cracked pepper.',t:null}],
+      1:[{n:'Beef Tartare',p:'$22',d:'Hand-cut prime beef, capers, shallot, Dijon, quail egg. Served with grilled sourdough.',t:'Raw'},{n:'Bone Marrow',p:'$18',d:'Roasted marrow bones with chimichurri, pickled shallots, and toasted baguette.',t:'Signature'},{n:'Ember Wedge',p:'$16',d:'Iceberg, applewood bacon, blue cheese crumble, cherry tomato, chive.',t:null},{n:'Shrimp Cocktail',p:'$24',d:'Jumbo tiger shrimp, house-made horseradish cocktail sauce, lemon.',t:null}],
+      2:[{n:'Crème Brûlée',p:'$14',d:'Classic vanilla custard with caramelized sugar crust and fresh berries.',t:null},{n:'Lava Cake',p:'$16',d:'Warm dark chocolate cake with molten center, vanilla bean ice cream.',t:'Signature'},{n:'Cheese Plate',p:'$22',d:'Three artisan cheeses, honeycomb, candied walnuts, seasonal fruit.',t:null},{n:'Pecan Pie',p:'$13',d:'House-made pecan pie with bourbon caramel, whipped cream, smoked salt.',t:null}]
+    };
+    document.querySelectorAll('.mtab').forEach((tab,idx)=>{
+      tab.addEventListener('click',()=>{
+        document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('on'));
+        tab.classList.add('on');
+        document.getElementById('mgrid').innerHTML = menus[idx].map(m=>`
+          <div class="mcard"><div class="mcard-top"><span class="mcard-name">${m.n}</span><span class="mcard-price">${m.p}</span></div>
+          <p class="mcard-desc">${m.d}</p>${m.t?`<span class="mcard-tag">${m.t}</span>`:''}</div>`).join('');
+      });
+    });
+  </script>
+</body>
+</html>
