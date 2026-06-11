@@ -2,7 +2,7 @@
 
 # Scopaify Website
 
-Modern restaurant digital agency website for [scopaify.com](https://scopaify.com)
+Scopaify, digital agency building modern restaurant website for restaurnat [scopaify.com](https://scopaify.com)
 
 ## License
 
