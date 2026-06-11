@@ -4,15 +4,11 @@
 
 Modern restaurant digital agency website for [scopaify.com](https://scopaify.com)
 
-## 🚀 Getting Started in VS Code
+## License
 
-### 1. Install Recommended Extensions
-
-When you open this folder in VS Code, you'll be prompted to install recommended extensions. Click **Install All**. Key ones:
-
-- **Live Server** — preview the site instantly with hot reload
-- **Prettier** — auto-formats your HTML/CSS on save
-- **Auto Rename Tag** — renames closing tags automatically
+This repository is proprietary. All rights reserved.
+Unauthorized copying, modification, or distribution of this code,
+in whole or in part, is strictly prohibited.
 
 ### 2. Launch the Site
 
