@@ -1089,12 +1089,12 @@ body::before {
   overflow: hidden;
   border-top: 1px solid var(--border);
 }
-.pricing-section {
+/* .pricing-section {
   padding: 88px 48px;
   position: relative;
   overflow: hidden;
   border-top: 1px solid var(--border);
-}
+} */
 .founding-banner {
   display: flex;
   align-items: flex-start;
