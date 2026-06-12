@@ -1089,6 +1089,51 @@ body::before {
   overflow: hidden;
   border-top: 1px solid var(--border);
 }
+.pricing-section {
+  padding: 88px 48px;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+}
+.founding-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(106, 92, 255, 0.12),
+    rgba(171, 85, 247, 0.06)
+  );
+  border: 1px solid rgba(106, 92, 255, 0.25);
+  border-radius: 16px;
+  padding: 22px 26px;
+  margin-bottom: 40px;
+  max-width: 760px;
+}
+.founding-banner-icon {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.founding-banner-title {
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-1);
+  margin-bottom: 6px;
+}
+.founding-banner-text {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.7;
+  font-weight: 300;
+}
+@media (max-width: 600px) {
+  .founding-banner {
+    flex-direction: column;
+    padding: 18px 20px;
+  }
+}
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1179,6 +1224,38 @@ body::before {
   letter-spacing: -1.5px;
   line-height: 1;
   margin: 12px 0 6px;
+}
+.plan-setup {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-2);
+  background: rgba(106, 92, 255, 0.1);
+  border: 1px solid rgba(106, 92, 255, 0.2);
+  border-radius: 20px;
+  padding: 4px 12px;
+  margin-top: 14px;
+}
+.plan-includes-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+.plan-best-for {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-3);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.plan-best-for strong {
+  color: var(--text-2);
+  font-weight: 500;
 }
 .plan-price sup {
   font-size: 20px;
