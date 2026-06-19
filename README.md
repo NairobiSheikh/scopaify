@@ -1,4 +1,4 @@
-# scopaify Restaurant Growth System
+# scopaify Restaurant Growth Systems
 
 # Scopaify Website
 
