@@ -1651,13 +1651,88 @@
 
     <!-- ═══════ PRICING ═══════ -->
     <section class="pricing-section" id="pricing">
-      <div style="max-width: 1240px; margin: 0 auto">
+      <div style="max-width:1240px;margin:0 auto">
         <div class="section-label animate">Pricing</div>
         <h2 class="section-title animate">
           Transparent plans.<br /><span class="grad">No surprises.</span>
         </h2>
         <p class="section-sub animate">
-          <!-- Simple monthly pricing with no hidden fees and no long-term lock-in. -->
+          Simple monthly pricing with no hidden fees and no long-term lock-in.
+          Simple pricing designed to help restaurants grow online without
+          long-term contracts or hidden fees.
+        </p>
+        <div class="founding-banner animate">
+          <div class="founding-banner-icon">🚀</div>
+          <div>
+            <div class="founding-banner-title">Founding Partner Pricing Available</div>
+            <div class="founding-banner-text">We're currently accepting a limited number of restaurant partners at introductory rates as we build our portfolio and success stories. Lock in preferred pricing before standard rates increase.</div>
+          </div>
+        </div>
+      </div>
+      <div class="pricing-grid">
+
+        <!-- LITE -->
+        <div class="plan-card animate">
+          <div class="plan-name">Lite</div>
+          <div class="plan-setup">$300 Setup</div>
+          <div class="plan-price"><sup>$</sup>50<sub> / mo</sub></div>
+          <div class="plan-desc">"Your restaurant, online and findable."</div>
+          <div class="plan-includes-label">Includes:</div>
+          <ul class="plan-features">
+            <li><i class="ti ti-check"></i> Homepage, Menu, About, Contact & Hours, Photo Gallery</li>
+            <li><i class="ti ti-check"></i> Click-to-Call & Click-to-Directions</li>
+            <li><i class="ti ti-check"></i> Embedded Link to Booking/Ordering Platform (OpenTable, DoorDash, etc.)</li>
+            <li><i class="ti ti-check"></i> 1 Content Edit/Month</li>
+          </ul>
+          <div class="plan-best-for"><strong>Best For:</strong> Brand new or very small restaurants that need a digital presence.</div>
+          <button class="plan-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button>
+        </div>
+
+        <!-- LAUNCH -->
+        <div class="plan-card popular animate">
+          <div class="pop-badge"><i class="ti ti-star" style="font-size:11px"></i> Most Popular</div>
+          <div class="plan-name">Launch</div>
+          <div class="plan-setup">$600 Setup</div>
+          <div class="plan-price"><sup>$</sup>50<sub> / mo</sub></div>
+          <div class="plan-desc">"Your restaurant, running itself."</div>
+          <div class="plan-includes-label">Everything in Lite PLUS:</div>
+          <ul class="plan-features">
+            <li><i class="ti ti-check"></i> Direct Reservation OR Native Ordering Form Built Into the Site</li>
+            <li><i class="ti ti-check"></i> Orders/Bookings Emailed or Texted Directly to You</li>
+            <li><i class="ti ti-check"></i> Google Business & Live Reviews Embedded on Site</li>
+            <li><i class="ti ti-check"></i> Events & Specials Section</li>
+            <li><i class="ti ti-check"></i> 3 Content Edits/Month</li>
+          </ul>
+          <div class="plan-best-for"><strong>Best For:</strong> Restaurants ready to replace 2–3 tools with one site that actually works for them.</div>
+          <button class="plan-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button>
+        </div>
+
+        <!-- PREMIUM -->
+        <div class="plan-card animate">
+          <div class="plan-name">Premium</div>
+          <div class="plan-setup">$900 Setup</div>
+          <div class="plan-price"><sup>$</sup>99<sub> / mo</sub></div>
+          <div class="plan-desc">"Your restaurant's entire digital operation."</div>
+          <div class="plan-includes-label">Everything in Launch PLUS:</div>
+          <ul class="plan-features">
+            <li><i class="ti ti-check"></i> Full Reservation & Ordering System with Confirmations & Automated Replies</li>
+            <li><i class="ti ti-check"></i> Loyalty & Email Capture Built In (Collect Emails for Promos)</li>
+            <li><i class="ti ti-check"></i> Multi-Location Support</li>
+            <li><i class="ti ti-check"></i> Monthly Performance Report & SEO Tracking</li>
+            <li><i class="ti ti-check"></i> 6 Content Edits/Month & Priority Support</li>
+          </ul>
+          <div class="plan-best-for"><strong>Best For:</strong> Restaurants that want a complete system — never need another tool again.</div>
+          <button class="plan-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Let's Talk</button>
+        </div>
+
+      </div>
+      <!-- <div style="max-width: 1240px; margin: 0 auto">
+        <div class="section-label animate">Pricing</div>
+        <h2 class="section-title animate">
+          Transparent plans.<br /><span class="grad">No surprises.</span>
+        </h2>
+        <p class="section-sub animate">
+          Simple monthly pricing with no hidden fees and no long-term lock-in.
           Simple pricing designed to help restaurants grow online without
           long-term contracts or hidden fees.
         </p>
@@ -1780,7 +1855,7 @@
             >
               Let's Talk
             </button>
-          </div>
+          </div> -->
           <!-- <div class="plan-name">Starter</div>
             <div class="plan-price"><sup>$</sup>100<sub> / mo</sub></div>
             <div class="plan-desc">
@@ -1983,74 +2058,50 @@
             title="form-target"
           ></iframe>
 
-          <form
-            id="scopaify-form"
-            action="https://docs.google.com/forms/d/e/1FAIpQLSe6oybjm9QVQNWtfknLgrxPpmHnyyPyTQing3QS9VlARQpfKA/formResponse"
-            method="POST"
-            target="hidden-gform"
-            onsubmit="handleFormSubmit(event)"
-          >
+          <form id="scopaify-form"
+                action="https://docs.google.com/forms/d/e/1FAIpQLSe6oybjm9QVQNWtfknLgrxPpmHnyyPyTQing3QS9VlARQpfKA/formResponse"
+                method="POST"
+                target="hidden-gform"
+                onsubmit="handleFormSubmit(event)">
+
             <div class="form-row">
               <div class="form-group">
                 <label>Full Name</label>
-                <input
-                  type="text"
-                  name="entry.149001592"
-                  placeholder="John Smith"
-                  required
-                />
+                <input type="text" name="entry.149001592" placeholder="John Smith" required />
               </div>
               <div class="form-group">
                 <label>Restaurant Name</label>
-                <input
-                  type="text"
-                  name="entry.2014882118"
-                  placeholder="The Golden Fork"
-                  required
-                />
+                <input type="text" name="entry.2014882118" placeholder="The Golden Fork" required />
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label>Email Address</label>
-                <input
-                  type="email"
-                  name="entry.2027121698"
-                  placeholder="john@yourrestaurant.com"
-                  required
-                />
+                <label>Phone Number</label>
+                <input type="tel" name="entry.862703608" placeholder="(555) 000-0000" required />
               </div>
               <div class="form-group">
-                <label>Phone Number</label>
-                <input
-                  type="tel"
-                  name="entry.862703608"
-                  placeholder="(555) 000-0000"
-                  required
-                />
+                <label>Email Address</label>
+                <input type="email" name="entry.2027121698" placeholder="john@yourrestaurant.com" required />
               </div>
             </div>
             <div class="form-group">
-              <label>Tell Us About Your Project</label>
-              <textarea
-                name="entry.658580137"
-                placeholder="Tell us about your restaurant, current website situation, and what goals you have..."
-                required
-              ></textarea>
+              <label>What service are you interested in?</label>
+              <select name="entry.1428694024" required>
+                <option value="" disabled selected>Select a service</option>
+                <option value="Website Service">Website Service</option>
+                <option value="Scopaify Systems Lite">Scopaify Systems Lite</option>
+                <option value="Scopaify Systems Lunch">Scopaify Systems Lunch</option>
+                <option value="Scopaify Systems Premium">Scopaify Systems Premium</option>
+                <option value="Not sure yet">Not sure yet — let's talk</option>
+              </select>
             </div>
             <div class="form-submit-row">
-              <span class="form-note"
-                ><i class="ti ti-lock"></i> Your info stays private</span
-              >
-              <button
-                type="submit"
-                id="form-submit-btn"
-                class="btn-primary"
-                style="padding: 13px 32px; font-size: 15px"
-              >
+              <span class="form-note"><i class="ti ti-lock"></i> Your info stays private</span>
+              <button type="submit" id="form-submit-btn" class="btn-primary" style="padding:13px 32px;font-size:15px">
                 Send Inquiry <i class="ti ti-arrow-right"></i>
               </button>
             </div>
+
           </form>
         </div>
       </div>
@@ -2151,7 +2202,7 @@
     </footer>
 
     <!-- ═══════ STICKY BOTTOM CTA BAR ═══════ -->
-    <div class="sticky-cta" id="stickyCta">
+    <!-- <div class="sticky-cta" id="stickyCta">
       <div class="sticky-cta-text">
         🍽️ <span>Free restaurant website audit</span> — find out what's costing
         you customers online.
@@ -2173,7 +2224,7 @@
           ✕ Dismiss
         </button>
       </div>
-    </div>
+    </div> -->
 
     <!-- ═══════ FLOATING LEAD POPUP ═══════ -->
     <div class="lead-popup" id="leadPopup">
