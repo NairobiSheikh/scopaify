@@ -2,7 +2,7 @@
 
 # Scopaify Website
 
-Scopaify, digital agency building modern restaurant website for restaurnat [scopaify.com](https://scopaify.com)
+Scopaify Grouwth System, digital agency/; Helping HVAC companys get more call and grow their business. [scopaify.com](https://scopaify.com)
 
 ## License
 
@@ -68,11 +68,6 @@ CSS variables are defined near the top of `index.html` inside `<style>`:
   --text-2: ...; /* Secondary text */
 }
 ```
-
-### Add a new demo
-
-1. Create a new `.html` file in the `demos/` folder
-2. Link to it in `index.html` in the portfolio section
 
 ### Swap the logo
 
