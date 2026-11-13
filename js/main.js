@@ -1,97 +1,131 @@
-// Scroll-triggered animations
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const siblings =
-          entry.target.parentElement.querySelectorAll(".animate");
-        let delay = 0;
-        siblings.forEach((el) => {
-          if (el === entry.target)
-            entry.target.style.transitionDelay = delay * 10 + "ms";
-          delay++;
-        });
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
+/* Scopaify – main.js
+   - Fills the package dropdowns, handles the buttons, validates and submits both forms.
+   - GOOGLE_FORM_URL and the entry.* IDs below connect the forms to your Google Form.
+   - If Google can't be reached, an email draft to hello@scopaify.com opens instead. */
+(function () {
+  var opts = [
+    ["", "Choose your package"],
+    ["Launch - $1,750", "Launch - $1,750"],
+    ["Grow - $3,250 (Most Popular)", "Grow - $3,250 (Most Popular)"],
+    ["Dominate - $5,500", "Dominate - $5,500"],
+    ["Not sure yet - Help me choose", "Not sure yet - Help me choose"],
+  ];
+  var sels = document.querySelectorAll("select");
+  sels.forEach(function (s) {
+    opts.forEach(function (o) {
+      var e = document.createElement("option");
+      e.value = o[0];
+      e.textContent = o[1];
+      s.appendChild(e);
     });
-  },
-  { threshold: 0.1 },
-);
-document.querySelectorAll(".animate").forEach((el) => observer.observe(el));
-
-// Nav scroll tint
-window.addEventListener("scroll", () => {
-  document.getElementById("nav").style.background =
-    window.scrollY > 40 ? "rgba(7,6,15,0.95)" : "rgba(7,6,15,0.72)";
-});
-
-// Mobile menu
-function toggleMenu() {
-  const links = document.querySelector(".nav-links");
-  links.style.cssText =
-    links.style.display === "flex"
-      ? ""
-      : "display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:rgba(7,6,15,0.97);backdrop-filter:blur(20px);padding:24px 28px 32px;gap:20px;border-bottom:1px solid rgba(255,255,255,0.08);z-index:998";
-}
-
-// ── LEAD-GEN: Sticky CTA bar — shows after scrolling past hero ──
-let stickyDismissed = false;
-function dismissSticky() {
-  stickyDismissed = true;
-  document.getElementById("stickyCta").classList.remove("visible");
-}
-window.addEventListener("scroll", () => {
-  const stickyCta = document.getElementById("stickyCta");
-  const heroHeight = document.querySelector(".hero").offsetHeight;
-  if (!stickyDismissed && window.scrollY > heroHeight * 0.6) {
-    stickyCta.classList.add("visible");
-  } else if (window.scrollY <= heroHeight * 0.4) {
-    stickyCta.classList.remove("visible");
-  }
-});
-
-// ── LEAD-GEN: Floating popup — shows after 18s on page ──
-let popupShown = false;
-setTimeout(() => {
-  if (!popupShown) {
-    popupShown = true;
-    document.getElementById("leadPopup").classList.add("visible");
-    // auto-hide after 12s
-    setTimeout(() => {
-      document.getElementById("leadPopup").style.transform =
-        "translateX(360px)";
-    }, 12000);
-  }
-}, 18000);
-
-// ── GOOGLE FORM SUBMISSION — submits to Google via hidden iframe, page stays put ──
-function handleFormSubmit(e) {
-  const form = document.getElementById("scopaify-form");
-  const btn = document.getElementById("form-submit-btn");
-  const fields = form.querySelectorAll("input[required], textarea[required]");
-  let valid = true;
-  fields.forEach((el) => {
-    if (!el.value.trim()) {
-      el.style.borderColor = "rgba(239,68,68,.55)";
-      el.style.boxShadow = "0 0 0 3px rgba(239,68,68,.12)";
-      valid = false;
-    } else {
-      el.style.borderColor = "";
-      el.style.boxShadow = "";
-    }
   });
-  if (!valid) {
-    e.preventDefault();
-    return;
+  document.querySelectorAll("[data-hero]").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      var f = document.getElementById("heroForm");
+      f.scrollIntoView({
+        behavior: matchMedia("(prefers-reduced-motion:reduce)").matches
+          ? "auto"
+          : "smooth",
+        block: "center",
+      });
+      setTimeout(function () {
+        document.getElementById("n1").focus({ preventScroll: true });
+      }, 400);
+    });
+  });
+  document.querySelectorAll("[data-pkg]").forEach(function (a) {
+    a.addEventListener("click", function () {
+      sels.forEach(function (s) {
+        s.value = a.dataset.pkg;
+      });
+    });
+  });
+  ["heroForm", "form2"].forEach(function (id) {
+    var fm = document.getElementById(id);
+    fm.noValidate = true;
+    fm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var f = e.target;
+      if (!f.checkValidity()) {
+        f.classList.add("tried");
+        var bad = f.querySelector(":invalid");
+        if (bad) bad.focus();
+        return;
+      }
+      f.classList.remove("tried");
+      var d = new FormData(f);
+      var body =
+        "Name: " +
+        d.get("name") +
+        "\nCompany: " +
+        d.get("company") +
+        "\nEmail: " +
+        d.get("email") +
+        "\nPhone: " +
+        d.get("phone") +
+        "\nPackage: " +
+        d.get("package");
+      var ok = f.querySelector(".ok"),
+        btn = f.querySelector("button[type=submit]");
+      btn.disabled = true;
+      var mail = function () {
+        location.href =
+          "mailto:hello@scopaify.com?subject=" +
+          encodeURIComponent(
+            "Inquiry: " + d.get("company") + " (" + d.get("package") + ")",
+          ) +
+          "&body=" +
+          encodeURIComponent(body);
+        ok.textContent =
+          "Your email draft is open. Please press send and we’ll text or call you within 24 hours.";
+        ok.style.display = "block";
+        btn.disabled = false;
+      };
+      var gd = new URLSearchParams();
+      gd.append("entry.783677615", d.get("name"));
+      gd.append("entry.1533936755", d.get("company"));
+      gd.append("entry.1655224522", d.get("email"));
+      gd.append("entry.162271363", d.get("phone"));
+      gd.append("entry.24668684", d.get("package"));
+      fetch(
+        "https://docs.google.com/forms/d/e/1FAIpQLSc-1ba4xqii4LBGojKWiS3cZWChIaiGtlWWEvcaqJkV0jjeDw/formResponse",
+        { method: "POST", mode: "no-cors", body: gd },
+      )
+        .then(function () {
+          ok.textContent =
+            "Thanks! Welcome to the Scopaify Growth System. We’ll text or call you within 24 hours.";
+          ok.style.display = "block";
+          f.reset();
+          btn.disabled = false;
+        })
+        .catch(mail);
+    });
+  });
+})();
+
+/* Mobile menu: opens/closes the header navigation on small screens. */
+(function () {
+  var b = document.querySelector(".menu"),
+    n = document.getElementById("nav");
+  if (!b || !n) return;
+  function set(o) {
+    n.classList.toggle("open", o);
+    b.setAttribute("aria-expanded", String(o));
+    b.setAttribute("aria-label", o ? "Close menu" : "Open menu");
   }
-  // Form submits to Google via target="hidden-gform" — page never navigates
-  btn.innerHTML = "✓ Sent! We'll be in touch within 24 hrs";
-  btn.style.background = "linear-gradient(135deg,#16a34a,#15803d)";
-  btn.style.boxShadow = "0 0 24px rgba(22,163,74,.35)";
-  btn.disabled = true;
-  // Clear fields after short delay
-  setTimeout(() => {
-    form.querySelectorAll("input, textarea").forEach((el) => (el.value = ""));
-  }, 1000);
-}
+  b.addEventListener("click", function () {
+    set(!n.classList.contains("open"));
+  });
+  n.addEventListener("click", function (e) {
+    if (e.target.closest("a")) set(false);
+  });
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest("header")) set(false);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") set(false);
+  });
+  matchMedia("(min-width:961px)").addEventListener("change", function () {
+    set(false);
+  })();
