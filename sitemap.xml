@@ -10,7 +10,7 @@
   </url>
 
   <!-- Demo sites -->
-  <url>
+  <!-- <url>
     <loc>https://scopaify.com/demos/ember-grill.html</loc>
     <lastmod>2026-06-06</lastmod>
     <changefreq>monthly</changefreq>
@@ -29,6 +29,6 @@
     <lastmod>2026-06-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-  </url>
+  </url> -->
 
 </urlset>
