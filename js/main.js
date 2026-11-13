@@ -103,3 +103,30 @@
     });
   });
 })();
+
+/* Mobile menu: opens/closes the header navigation on small screens. */
+(function () {
+  var b = document.querySelector(".menu"),
+    n = document.getElementById("nav");
+  if (!b || !n) return;
+  function set(o) {
+    n.classList.toggle("open", o);
+    b.setAttribute("aria-expanded", String(o));
+    b.setAttribute("aria-label", o ? "Close menu" : "Open menu");
+  }
+  b.addEventListener("click", function () {
+    set(!n.classList.contains("open"));
+  });
+  n.addEventListener("click", function (e) {
+    if (e.target.closest("a")) set(false);
+  });
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest("header")) set(false);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") set(false);
+  });
+  matchMedia("(min-width:961px)").addEventListener("change", function () {
+    set(false);
+  });
+})();
